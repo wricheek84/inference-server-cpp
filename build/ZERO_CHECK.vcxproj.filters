@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\wrich\inference-server-cpp\build\CMakeFiles\399025a6f97bec07ba8284a120496af3\generate.stamp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{55A76F40-EEE1-3AD8-BFC8-D6F623C9684B}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
