@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package inference;
+
+
+message InferenceRequest {
+  repeated int32 tokens = 1; 
+}
+
+
+message InferenceResponse {
+  repeated int32 output_tokens = 1;
+}
+
+
+service InferenceEngine {
+  rpc RunInference (InferenceRequest) returns (InferenceResponse);
+}

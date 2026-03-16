@@ -1,3 +1,13 @@
+^C:\USERS\WRICH\INFERENCE-SERVER-CPP\BUILD\CMAKEFILES\65B4CBBCD1DF25A3A4FBE25519829CD1\INFERENCE.PB.CC.RULE
+setlocal
+C:\Users\wrich\vcpkg\installed\x64-windows\tools\protobuf\protoc.exe --proto_path="C:/Users/wrich/inference-server-cpp/proto" --cpp_out="C:/Users/wrich/inference-server-cpp/build" --grpc_out="C:/Users/wrich/inference-server-cpp/build" --plugin=protoc-gen-grpc=C:/Users/wrich/vcpkg/installed/x64-windows/tools/grpc/grpc_cpp_plugin.exe C:/Users/wrich/inference-server-cpp/proto/inference.proto
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
 ^C:\USERS\WRICH\INFERENCE-SERVER-CPP\CMAKELISTS.TXT
 setlocal
 "C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/wrich/inference-server-cpp -BC:/Users/wrich/inference-server-cpp/build --check-stamp-file C:/Users/wrich/inference-server-cpp/build/CMakeFiles/generate.stamp

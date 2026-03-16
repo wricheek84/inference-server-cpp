@@ -1,1 +1,3 @@
 C:\Users\wrich\inference-server-cpp\src\main.cpp;C:\Users\wrich\inference-server-cpp\build\server_engine.dir\Debug\main.obj
+C:\Users\wrich\inference-server-cpp\build\inference.pb.cc;C:\Users\wrich\inference-server-cpp\build\server_engine.dir\Debug\inference.pb.obj
+C:\Users\wrich\inference-server-cpp\build\inference.grpc.pb.cc;C:\Users\wrich\inference-server-cpp\build\server_engine.dir\Debug\inference.grpc.pb.obj
