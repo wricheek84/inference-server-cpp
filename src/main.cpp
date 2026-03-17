@@ -11,11 +11,12 @@ class InferenceServiceImpl final : public inference::InferenceEngine::Service {
     grpc::Status RunInference(grpc::ServerContext* context, const inference::InferenceRequest* request, inference::InferenceResponse* reply) override {
         int tokens = request->tokens_size();
         std::cout << "Received a request with " << tokens << " tokens." << std::endl;
-        if(tokens>0){
-            int first_token = request->tokens(0);
-            std::cout << "Pushing task with first token: " << first_token << " to the queue." << std::endl;
-            order_queue.push(first_token);
+        for (int i = 0; i < tokens; i++) {
+            int token = request->tokens(i);
+            
+            order_queue.push(token);
         }
+        
         reply->add_output_tokens(200);
 
         return grpc::Status::OK;
