@@ -13,6 +13,8 @@ include_directories(include)
 # 1. Find the gRPC and Protobuf libraries on your system
 find_package(Protobuf REQUIRED)
 find_package(gRPC CONFIG REQUIRED)
+# ---> ADDED THIS LINE FOR AI MATH <---
+find_package(onnxruntime CONFIG REQUIRED)
 
 # 2. Point CMake to your contract file
 set(PROTO_DIR "${CMAKE_CURRENT_SOURCE_DIR}/proto")
@@ -50,4 +52,6 @@ add_executable(server_engine ${SOURCES} ${PROTO_SRCS})
 target_include_directories(server_engine PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
 
 # 6. Link the actual gRPC and Protobuf network engines to your code
-target_link_libraries(server_engine PRIVATE gRPC::grpc++ protobuf::libprotobuf)
+# ---> ADDED 'onnxruntime' TO THE END OF THIS LINE <---
+target_link_libraries(server_engine PRIVATE gRPC::grpc++ protobuf::libprotobuf onnxruntime::onnxruntime)
+

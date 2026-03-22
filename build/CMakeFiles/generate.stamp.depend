@@ -148,6 +148,11 @@ C:/Users/wrich/vcpkg/installed/x64-windows/share/grpc/gRPCTargets-release.cmake
 C:/Users/wrich/vcpkg/installed/x64-windows/share/grpc/gRPCTargets.cmake
 C:/Users/wrich/vcpkg/installed/x64-windows/share/grpc/modules/Findc-ares.cmake
 C:/Users/wrich/vcpkg/installed/x64-windows/share/grpc/modules/Findre2.cmake
+C:/Users/wrich/vcpkg/installed/x64-windows/share/onnxruntime/onnxruntimeConfig.cmake
+C:/Users/wrich/vcpkg/installed/x64-windows/share/onnxruntime/onnxruntimeConfigVersion.cmake
+C:/Users/wrich/vcpkg/installed/x64-windows/share/onnxruntime/onnxruntimeTargets-debug.cmake
+C:/Users/wrich/vcpkg/installed/x64-windows/share/onnxruntime/onnxruntimeTargets-release.cmake
+C:/Users/wrich/vcpkg/installed/x64-windows/share/onnxruntime/onnxruntimeTargets.cmake
 C:/Users/wrich/vcpkg/installed/x64-windows/share/openssl/vcpkg-cmake-wrapper.cmake
 C:/Users/wrich/vcpkg/installed/x64-windows/share/protobuf/protobuf-config-version.cmake
 C:/Users/wrich/vcpkg/installed/x64-windows/share/protobuf/protobuf-config.cmake
