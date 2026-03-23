@@ -1,12 +1,33 @@
-# Ignore build directories and CMake artifacts
+# C++ Build & Artifacts
 build/
 out/
 .vs/
+bin/
+obj/
 *.exe
+*.obj
+*.pdb
+*.ilk
+*.lib
+*.dll
 
-# Ignore vcpkg if it is inside your project
+# AI Models (Crucial: Keep the 67MB file out of Git)
+onnx/
+*.onnx
+
+# Package Managers
 vcpkg/
 vcpkg_installed/
+node_modules/
+dist/
 
-# Ignore Python cache
+# Python & Environment
 __pycache__/
+.venv/
+.env
+.cache/
+.ipynb_checkpoints/
+
+# IDEs
+.vscode/
+.idea/

@@ -138,6 +138,9 @@ C:/Users/wrich/vcpkg/installed/x64-windows/share/c-ares/c-ares-config.cmake
 C:/Users/wrich/vcpkg/installed/x64-windows/share/c-ares/c-ares-targets-debug.cmake
 C:/Users/wrich/vcpkg/installed/x64-windows/share/c-ares/c-ares-targets-release.cmake
 C:/Users/wrich/vcpkg/installed/x64-windows/share/c-ares/c-ares-targets.cmake
+C:/Users/wrich/vcpkg/installed/x64-windows/share/crow/CrowConfig.cmake
+C:/Users/wrich/vcpkg/installed/x64-windows/share/crow/CrowTargets.cmake
+C:/Users/wrich/vcpkg/installed/x64-windows/share/crow/Findasio.cmake
 C:/Users/wrich/vcpkg/installed/x64-windows/share/grpc/gRPCConfig.cmake
 C:/Users/wrich/vcpkg/installed/x64-windows/share/grpc/gRPCConfigVersion.cmake
 C:/Users/wrich/vcpkg/installed/x64-windows/share/grpc/gRPCPluginTargets-debug.cmake

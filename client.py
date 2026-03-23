@@ -8,18 +8,16 @@ def run():
     
     stub = inference_pb2_grpc.InferenceEngineStub(channel)
     
-    # MATCHING YOUR CONTRACT EXACTLY:
-    # Sending a list of integer tokens (e.g., [101, 456, 789])
     request = inference_pb2.InferenceRequest(
-        tokens=[101, 4054, 8976] 
+        tokens=list(range(1, 201))
     )
     
     print("Firing payload...")
     
-    # We will wrap this in a try-except block just in case
+    
     try:
         response = stub.RunInference(request)
-        print("Shot fired successfully! Look at your C++ terminal!")
+        print("Sent successfully! Look at your C++ terminal!")
     except grpc.RpcError as e:
         print(f"Network error: {e.details()}")
 
