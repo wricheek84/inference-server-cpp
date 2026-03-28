@@ -1,0 +1,106 @@
+@import "tailwindcss";
+
+/* 1. Global Setup */
+:root {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+body {
+  margin: 0;
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 2. Base Card Structure */
+.card {
+  position: relative;
+  overflow: hidden;
+  background: #0d0d0d;
+  border-radius: 12px;
+  
+  /* Visible borders on ALL cards by default */
+  border: 1px solid rgba(255, 255, 255, 0.15); 
+  
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  
+  /* Smooth Motion */
+  transition:
+    transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+    filter 0.2s ease,
+    border-color 0.2s ease;
+  will-change: transform, box-shadow;
+}
+
+/* 3. The 'Glossy' Spotlight Layer */
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  background: radial-gradient(
+    600px circle at var(--mouse-x) var(--mouse-y),
+    rgba(255, 255, 255, 0.08),
+    transparent 40%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+/* 4. Global Hover Logic */
+.card:hover {
+  transform: translateY(-6px);
+  filter: brightness(1.1);
+}
+
+.card:hover::before {
+  opacity: 1;
+}
+
+/* 🟢 P99 (Green Border & Glow) */
+.card-p99 {
+  border-color: rgba(57, 255, 20, 0.3); 
+}
+
+.card-p99:hover {
+  box-shadow:
+    0 12px 30px rgba(0, 0, 0, 0.7),
+    0 0 12px rgba(57, 255, 20, 0.18),
+    0 0 28px rgba(57, 255, 20, 0.10);
+  border-color: rgba(57, 255, 20, 0.6);
+}
+
+/* 🔵 P50 (Cyan Border & Glow) */
+.card-p50 {
+  border-color: rgba(0, 255, 255, 0.3);
+}
+
+.card-p50:hover {
+  box-shadow:
+    0 12px 30px rgba(0, 0, 0, 0.7),
+    0 0 12px rgba(0, 255, 255, 0.18),
+    0 0 28px rgba(0, 255, 255, 0.10);
+  border-color: rgba(0, 255, 255, 0.6);
+}
+
+/* 🔴 RED (For Inactive Workers or Alerts) */
+.card-red {
+  border-color: rgba(255, 49, 49, 0.2);
+}
+
+.card-red:hover {
+  box-shadow:
+    0 12px 30px rgba(0, 0, 0, 0.7),
+    0 0 12px rgba(255, 49, 49, 0.15),
+    0 0 28px rgba(255, 49, 49, 0.08);
+  border-color: rgba(255, 49, 49, 0.4);
+}
+
+/* 5. Content Layering */
+.card > * {
+  position: relative;
+  z-index: 20;
+}

@@ -9,7 +9,7 @@ def run():
     stub = inference_pb2_grpc.InferenceEngineStub(channel)
     
     request = inference_pb2.InferenceRequest(
-        tokens=list(range(1, 201))
+        tokens=list(range(1, 7001))
     )
     
     print("Firing payload...")
