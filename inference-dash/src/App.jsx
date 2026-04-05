@@ -40,7 +40,10 @@ function App() {
     p99: 0,
     p50: 0,
     total_batches: 0,
-    status: "CONNECTING..."
+    status: "CONNECTING...",
+    // --- NEW FIELDS ---
+    latest_prediction: 0,
+    latest_confidence: 0
   });
 
   const [history, setHistory] = useState([]);
@@ -56,14 +59,13 @@ function App() {
       const p99_val = parseFloat(data.p99_latency || 0);
       const p50_val = parseFloat(data.p50_latency || 0);
 
-      // Update Live Graph History
       setHistory(prev => {
         const newHistory = [...prev, { 
           time: new Date().toLocaleTimeString().slice(-5), 
           p99: p99_val, 
           p50: p50_val 
         }];
-        return newHistory.slice(-60); // Keep 1 minute of history
+        return newHistory.slice(-60); 
       });
       
       setStats(prev => {
@@ -90,7 +92,10 @@ function App() {
           total_tokens: newTotalTokens,
           p99: p99_val.toFixed(1),
           p50: p50_val.toFixed(1),
-          total_batches: data.total_batches || prev.total_batches
+          total_batches: data.total_batches || prev.total_batches,
+          // --- MAPPING NEW DATA ---
+          latest_prediction: data.latest_prediction,
+          latest_confidence: (data.latest_confidence * 100).toFixed(2)
         };
       });
     };
@@ -118,6 +123,21 @@ function App() {
       </div>
 
       <div className="grid grid-cols-2 gap-10 w-full max-w-[1320px]">
+        {/* --- NEW: ADVISOR VERDICT CARD --- */}
+        <div className="col-span-2">
+          <Card title="SRE Advisor Verdict" type={stats.latest_prediction === 1 ? "card-red" : "card-p99"}>
+            <div className="flex flex-col items-center justify-center py-4">
+              <h1 className={`text-7xl font-black tracking-tighter mb-4 transition-colors duration-300 ${stats.latest_prediction === 0 ? 'text-[#39FF14]' : 'text-[#FF3131]'}`}>
+                {stats.latest_prediction === 0 ? "SYSTEM_STABLE" : "ANOMALY_DETECTED"}
+              </h1>
+              <div className="flex items-center gap-4 bg-white/5 px-6 py-2 rounded-full border border-white/10">
+                <span className="text-gray-500 text-[10px] font-black uppercase tracking-widest">Model Confidence</span>
+                <span className="text-[#00FFFF] text-2xl font-bold">{stats.latest_confidence}%</span>
+              </div>
+            </div>
+          </Card>
+        </div>
+
         <Card title="P99 Latency" value={stats.p99} unit="ms" type="card-p99" />
         <Card title="P50 Latency" value={stats.p50} unit="ms" type="card-p50" />
         

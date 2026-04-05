@@ -14,21 +14,45 @@ SimpleQueue<InferenceRequest> order_queue;
 class InferenceServiceImpl final : public inference::InferenceEngine::Service {
     grpc::Status RunInference(grpc::ServerContext* context, const inference::InferenceRequest* request, inference::InferenceResponse* reply) override {
         int tokens = request->tokens_size();
-        std::cout << "Received a request with " << tokens << " tokens." << std::endl;
+        
+
+        if (order_queue.get_queue_depth() > 500) {
+            return grpc::Status(grpc::StatusCode::RESOURCE_EXHAUSTED, "Server is overloaded");
+        }
+
+        std::cout << "Received request for model: " << request->model_id() << " with " << tokens << " tokens." << std::endl;
+
         for (int i = 0; i < tokens; i++) {
             int token = request->tokens(i);
-            order_queue.push({(int64_t)token, 1, std::chrono::steady_clock::now()});
+            
+            
+            order_queue.push({
+                request->model_id(), 
+                (int64_t)token, 
+                1, 
+                std::chrono::steady_clock::now()
+            });
         }
-        reply->add_output_tokens(200);
+
+        
+        reply->add_output_tokens(200); 
         return grpc::Status::OK;
     }
 };
 
 int main() {
+    
     unsigned int n = std::thread::hardware_concurrency();
     std::cout << "Starting " << n << " worker threads." << std::endl;
 
-    ThreadPool pool(n, order_queue);
+    
+    std::vector<std::pair<std::string, std::wstring>> models = {
+        {"classifier", L"C:\\Users\\wrich\\inference-server-cpp\\onnx\\model_quantized.onnx"}
+    };
+
+
+    ThreadPool pool(n, order_queue, models);
+
 
     std::thread dashboard_thread([&pool]() {
         crow::SimpleApp app;
@@ -53,15 +77,15 @@ int main() {
                 auto snap = pool.get_and_reset_telemetry();
                 
                 crow::json::wvalue x;
-                
                 x["queue_peak"] = snap.queue_peak;
                 x["tasks_processed"] = snap.tasks_processed;
                 x["worker_peak"] = snap.worker_peak;
                 x["worker_active_time_ns"] = snap.worker_active_time_ns;
-                
                 x["p50_latency"] = p.p50;
                 x["p99_latency"] = p.p99;
                 x["total_batches"] = pool.get_total_batches();
+                x["latest_prediction"] = pool.get_latest_prediction();
+                x["latest_confidence"] = (double)pool.get_latest_confidence();
 
                 std::string msg = x.dump();
                 
@@ -78,13 +102,14 @@ int main() {
     });
     dashboard_thread.detach();
 
+    // --- gRPC Server Setup ---
     std::string server_address("0.0.0.0:50051");
     InferenceServiceImpl service;
     grpc::ServerBuilder builder;
     builder.AddListeningPort(server_address, grpc::InsecureServerCredentials());
     builder.RegisterService(&service);
-    std::unique_ptr<grpc::Server> server(builder.BuildAndStart());
     
+    std::unique_ptr<grpc::Server> server(builder.BuildAndStart());
     std::cout << "gRPC Inference Server listening on " << server_address << std::endl;
     server->Wait();
 

@@ -5,6 +5,7 @@ package inference;
 
 message InferenceRequest {
   repeated int32 tokens = 1; 
+  string model_id = 2;
 }
 
 
